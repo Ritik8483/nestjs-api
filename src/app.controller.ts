@@ -43,9 +43,8 @@ export class BooksController {
     return this.booksService.createBook(bookData);
   }
 
-  @Post()
-  addBook(@Body() bookData: any): Book {
-    console.log('book', bookData);
-    return this.booksService.createBook(bookData);
+  @Put(':id')
+  updatePutBook(@Param('id') id: any, @Body() bookData: any): Book | any {
+    return this.booksService.updateBookByPut(+id, bookData);
   }
 }

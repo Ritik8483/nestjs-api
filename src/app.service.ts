@@ -30,4 +30,17 @@ export class BooksService {
     return bookPayload;
     // return books.push(bookPayload);
   }
+
+  updateBookByPut(id: any, bookPayload: any): Book | undefined {
+    const currentBook = books.find((book: any) => book.id === id);
+    const updatedBooks = { ...bookPayload, ...currentBook };
+    books.map((item: any, index: number) => {
+      if (id === item.id) {
+        return updatedBooks;
+      } else {
+        return item;
+      }
+    });
+    return updatedBooks;
+  }
 }
