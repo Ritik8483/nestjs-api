@@ -32,9 +32,11 @@ import { Module } from '@nestjs/common';
 import { PhoneModule } from './phones/phone.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { PhotoModule } from './photos/photo.module';
 
 @Module({
-  imports: [PhoneModule],
+  imports: [PhotoModule],     //TYPE-ORM
+  // imports: [PhoneModule],      //SEQUELIZE
   controllers: [AppController],
   providers: [AppService],
 })

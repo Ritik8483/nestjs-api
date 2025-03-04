@@ -60,52 +60,90 @@
 //   },
 // ];
 
+
+
+// -------------------------------------------------------------------------------
+
 //mssql
 // Connection String = Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;
-import { Sequelize } from 'sequelize-typescript';
-import { Phone } from 'src/phones/phone.entity';
+// import { Sequelize } from 'sequelize-typescript';
+// import { Phone } from 'src/phones/phone.entity';
+
+// export const databaseProviders = [
+//   {
+//     provide: 'SEQUELIZE', 
+//     useFactory: async () => {
+//       const sequelize:any = new Sequelize('players', 'sa', 'Web@Ligo$$$78', {
+//         host: '20.235.76.232',
+//         port: 1433,
+//         dialect: 'mssql',
+//         database: 'players',
+//         pool: {
+//           max: 10,
+//           min: 0,
+//           idle: 25000,
+//           acquire: 25000,
+//         },
+//         dialectOptions: {
+//           authentication: {
+//             options: {
+//               userName: 'sa', // Leave blank or set appropriately if needed
+//               password: 'Web@Ligo$$$78', // Leave blank or set appropriately if needed
+//             },
+//           },
+//           options: {
+//             encrypt: false,
+//             trustServerCertificate: true,
+//             requestTimeout: 300000,
+//             integratedSecurity: false, // Integrated Security (Windows Authentication)
+//           },
+//         },
+//         logging: false,
+//         define: {
+//           timestamps: false,
+//           underscored: true,
+//         },
+//       });
+
+//       sequelize.addModels([Phone]);
+//       // await sequelize.sync(); // Ensure the connection is established
+      
+//       console.log('Connection has been established successfully.');
+//       return sequelize;
+//     },
+//   },
+// ];
+
+
+
+
+// ---------------------------------------------------------------------------------
+// typeorm connection of MSSQL 
+
+import { DataSource } from 'typeorm';
+import { Photo } from 'src/photos/photo.entity';
 
 export const databaseProviders = [
   {
-    provide: 'SEQUELIZE', 
+    provide: 'DATA_SOURCE',
     useFactory: async () => {
-      const sequelize:any = new Sequelize('players', 'sa', 'Web@Ligo$$$78', {
-        host: '20.235.76.232',
-        port: 1433,
-        dialect: 'mssql',
+      const dataSource = new DataSource({
+        type: 'mssql',
+        host: '20.235.76.232',  // ✅ Ensure this matches your MSSQL server instance
+        port: 1433,          // ✅ MSSQL default port is 1433
+        username: 'sa',     // ✅ Change this to your actual MSSQL username
+        password: 'Web@Ligo$$$78', // ✅ Use your actual password
         database: 'players',
-        pool: {
-          max: 10,
-          min: 0,
-          idle: 25000,
-          acquire: 25000,
-        },
-        dialectOptions: {
-          authentication: {
-            options: {
-              userName: 'sa', // Leave blank or set appropriately if needed
-              password: 'Web@Ligo$$$78', // Leave blank or set appropriately if needed
-            },
-          },
-          options: {
-            encrypt: false,
-            trustServerCertificate: true,
-            requestTimeout: 300000,
-            integratedSecurity: false, // Integrated Security (Windows Authentication)
-          },
-        },
-        logging: false,
-        define: {
-          timestamps: false,
-          underscored: true,
+        entities: [Photo],   // ✅ Ensure entity is properly imported
+        synchronize: true,   // ⚠️ Don't use in production, use migrations instead
+        logging:false,
+        options: {
+          encrypt: true,   // ✅ Set to true if using SSL
+          trustServerCertificate: true, // ✅ Required for local dev
         },
       });
 
-      sequelize.addModels([Phone]);
-      // await sequelize.sync(); // Ensure the connection is established
-      
-      console.log('Connection has been established successfully.');
-      return sequelize;
+      return dataSource.initialize();
     },
   },
 ];
