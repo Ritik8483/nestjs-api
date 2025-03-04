@@ -1,3 +1,5 @@
+//(CreatePhotoDto, UpdatePhotoDto): Defines the structure of request data.
+
 export class CreatePhotoDto {
     name: string;
     description: string;

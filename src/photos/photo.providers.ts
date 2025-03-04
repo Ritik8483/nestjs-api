@@ -1,3 +1,5 @@
+//Registers the Photo entity with TypeORM
+
 import { DataSource } from 'typeorm';
 import { Photo } from './photo.entity';
 

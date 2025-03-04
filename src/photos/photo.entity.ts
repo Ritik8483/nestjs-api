@@ -1,8 +1,11 @@
+// Defines the database table structure using TypeORM
 
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
+//Marks Photo as a database entity (i.e., a table).
 export class Photo {
+  // Defines id as the primary key with auto-increment.
   @PrimaryGeneratedColumn()
   id: number;
 

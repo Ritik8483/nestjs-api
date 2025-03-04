@@ -135,7 +135,7 @@ export const databaseProviders = [
         password: 'Web@Ligo$$$78', // ✅ Use your actual password
         database: 'players',
         entities: [Photo],   // ✅ Ensure entity is properly imported
-        synchronize: true,   // ⚠️ Don't use in production, use migrations instead
+        // synchronize: true,   // ⚠️ Don't use in production, use migrations instead
         logging:false,
         options: {
           encrypt: true,   // ✅ Set to true if using SSL
