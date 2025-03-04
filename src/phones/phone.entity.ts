@@ -17,15 +17,17 @@
 // }
 
 //mssql
-import { Table, Column, Model, PrimaryKey } from 'sequelize-typescript';
-@Table
+import { Table, Column, Model, PrimaryKey, AutoIncrement, CreatedAt, UpdatedAt } from 'sequelize-typescript';
+@Table({ timestamps: true })
 export class Phone extends Model {
   @PrimaryKey
-  @Column({
-    type: 'int',
-    allowNull: false,
-    // autoIncrement: true,   //this property must match the db properties
-  })
+  @AutoIncrement
+  @Column
+  // ({
+  //   type: 'int',
+  //   allowNull: false,
+  //   autoIncrement: true,   //this property must match the db properties
+  // })
   id: number;
 
   @Column
@@ -36,4 +38,12 @@ export class Phone extends Model {
 
   @Column('int')
   price: number;
+
+  @CreatedAt
+  @Column
+  created_at: Date; // ✅ Auto-generated timestamp
+
+  @UpdatedAt
+  @Column
+  updated_at: Date;
 }
