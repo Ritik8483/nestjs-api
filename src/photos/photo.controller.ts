@@ -71,10 +71,10 @@ import { CreatePhotoDto, UpdatePhotoDto } from './photo.dto';
 import { Response, Request } from 'express';
 
 //   @Controller('photo'): Prefixes all routes with /photo
-@Controller('photo')
+@Controller('photo')      //All routes here will be prefixed with /photo
 export class PhotoController {
-  constructor(private readonly photoService: PhotoService) {}
-
+  constructor(private readonly photoService: PhotoService) {}   //You can only access photoService inside this class (not from outside).
+                                                        //  You can set its value only once (in the constructor).
   @Post()
   async create(
     @Body() createPhotoDto: CreatePhotoDto,
@@ -82,7 +82,7 @@ export class PhotoController {
     @Res() res: Response,
   ) {
     try {
-      const resp = await this.photoService.createPhoto(createPhotoDto);
+      const resp = await this.photoService.createPhoto(createPhotoDto);   //Injected from PhotoService to handle the actual business logic
       return res.status(HttpStatus.OK).json({ success: true }); //photoService = service,create function
     } catch (error) {
       return res

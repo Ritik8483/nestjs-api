@@ -1,4 +1,4 @@
-// Defines the database table structure using TypeORM
+// Defines the database table structure using TypeORM like column name and type
 
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 

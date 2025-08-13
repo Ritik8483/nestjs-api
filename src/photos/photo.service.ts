@@ -36,6 +36,7 @@
 // }
 
 // PhotoService: Handles all database logic.
+//takes token PHOTO_REPOSITORY and  Photo as a database entity (i.e., a table) and 
 //STORED PROCEDURE
 import { Injectable, Inject } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
@@ -47,8 +48,8 @@ export class PhotoService {
   constructor(
     // @Inject('DATA_SOURCE') private readonly dataSource: DataSource,
     @Inject('PHOTO_REPOSITORY')   //Injects the PHOTO_REPOSITORY (TypeORM Repository for Photo).
-    private photoRepository: Repository<Photo>,
-  ) {}
+    private photoRepository: Repository<Photo>,     //Repository interacts with the database (via TypeORM)
+  ) {}        //Response goes back the same path → Service → Controller → HTTP Response.
 
   async createPhoto(createPhotoDto: CreatePhotoDto): Promise<Photo> {
     const { name, description, filename, views, isPublished } = createPhotoDto;
